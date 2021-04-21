@@ -1,0 +1,35 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">News App</string>
+    <string name="home">Home</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="business">Business</string>
+    <string name="headlines">Top Headlines</string>
+    <string name="read_more">Read more</string>
+    <string name="saved">Item saved</string>
+    <string name="removed">Removed</string>
+    <string name="deleteAll">Delete All</string>
+    <string name="deleteMess">Are you sure you want to delete all articles from saved?</string>
+    <string name="delete">Delete</string>
+    <string name="missingUrl">No url available</string>
+    <string name="connection_lost">Connection lost</string>
+    <string name="no_saved_articles">No saved articles</string>
+    <string name="description_no_saved">Go back and save articles here</string>
+    <string name="done">Done</string>
+    <string name="failed">too many request</string>
+    <string name="retry">RETRY</string>
+    <string name="error">Error in fetching data</string>
+    <string name="app_preferences">APP PREFERENCES</string>
+    <string name="country">Country</string>
+    <string name="argentina">Argentina</string>
+    <string name="australia">Australia</string>
+    <string name="belgium">Belgium</string>
+    <string name="canada">Canada</string>
+    <string name="notification_settings">Android Notification Settings</string>
+    <string name="status_notification">Enable or disable alerts in your system notification</string>
+    <string name="sound_effect">A sound effect when you open the app</string>
+    <string name="enable" tools:ignore="StringEscaping">Enable sound</string>
+    <string name="font_size">Font size</string>
+    <string name="alerts">Alerts</string>
+    <string name="by">By</string>
+</resources>
