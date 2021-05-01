@@ -39,15 +39,10 @@
             android:id="@+id/iv_image"
             android:layout_width="130dp"
             android:layout_height="95dp"
+            android:contentDescription="@string/article_photo"
             android:scaleType="fitXY"
             tools:srcCompat="@drawable/sample" />
 
-        <ImageView
-            android:id="@+id/iv_no_image"
-            android:layout_width="130dp"
-            android:layout_height="95dp"
-            android:visibility="gone"
-            tools:srcCompat="@drawable/sample" />
 
     </androidx.cardview.widget.CardView>
 

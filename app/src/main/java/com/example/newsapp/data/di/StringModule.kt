@@ -11,5 +11,4 @@ object StringModule {
 
     @Provides
     fun provideString() = ""
-
 }

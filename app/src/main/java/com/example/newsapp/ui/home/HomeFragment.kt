@@ -47,7 +47,9 @@ class HomeFragment @Inject constructor(private val category: String) :
         // Inflate the layout for this fragment
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        updateUi()
+        initViews()
+        handleLoadState()
+        // Update ui
         Coroutines.main {
             viewModel.getData(category).collectLatest { pagedData ->
                 homeAdapter.submitData(pagedData)
@@ -57,15 +59,19 @@ class HomeFragment @Inject constructor(private val category: String) :
     }
 
 
-    private fun updateUi() {
-        // init Views
+    private fun initViews() {
         homeAdapter = HomeAdapter(this, articleDao)
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerView.adapter = homeAdapter
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = homeAdapter
+        }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.btnRetry.setOnClickListener(this)
+    }
 
-        // Handle load state from paging
+
+    // Handle load state from paging
+    private fun handleLoadState() {
         binding.apply {
             homeAdapter.addLoadStateListener {
                 when (it.refresh) {

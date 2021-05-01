@@ -16,10 +16,27 @@ object Constants {
     const val ALL = "ALL_CATEGORY"
     const val SAVE = "SAVE"
     const val REMOVE = "REMOVE"
+    const val DELETE = "delete"
+    const val SHARE = "share"
+
+    // Shared Preferences
     const val MyPREFERENCES = "MyPrefs"
     const val STATUS = "status"
     const val TRUE = "true"
     const val FALSE = "false"
+
+    // Font size
+    const val SMALL = "Small"
+    const val DEFAULT = "Default"
+    const val LARGE = "Large"
+    const val EXTRA_LARGE = "Extra Large"
+    const val JUMBO = "Jumbo"
+    const val FONT_SIZE = "font_size"
+    const val FOURTEEN = "14"
+    const val SIXTEEN = "16"
+    const val EIGHTEEN = "18"
+    const val TWENTY = "20"
+    const val TWENTY_TWO = "22"
 
 
     // For paging library

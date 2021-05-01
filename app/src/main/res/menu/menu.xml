@@ -8,6 +8,4 @@
         android:icon="@drawable/ic_share_white"
         android:title=""
         app:showAsAction="ifRoom" />
-
-
 </menu>

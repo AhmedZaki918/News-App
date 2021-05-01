@@ -74,16 +74,16 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     // Coroutine
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
 
     // Room
-    implementation "androidx.room:room-runtime:2.2.6"
-    kapt "androidx.room:room-compiler:2.2.6"
-    implementation "androidx.room:room-ktx:2.2.6"
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
+    implementation "androidx.room:room-ktx:2.3.0"
 
     // Paging
     //noinspection KtxExtensionAvailable
-    implementation 'androidx.paging:paging-runtime:3.0.0-beta03'
+    implementation 'androidx.paging:paging-runtime:3.0.0-rc01'
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"

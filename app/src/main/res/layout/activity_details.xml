@@ -16,6 +16,7 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="250dp"
+            android:contentDescription="@string/article_photo"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -41,15 +42,17 @@
 
         <TextView
             android:id="@+id/tv_author"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             android:textColor="@color/red"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_by"
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            tools:text="Alex robin" />
+            tools:text="Alex robin " />
 
         <TextView
             android:id="@+id/tv_description"
@@ -76,7 +79,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_description"
-            tools:text="A cataclysmic collision between two galaxies could leave the supermassive black hole at the centre of the larger one 'starved of material', astronomers claim.\r\nExperts from the University of Tokyo cr… [+6017 chars]" />
+            tools:text="A cataclysmic collision between two galaxies could leave the super massive black hole at the centre of the larger one 'starved of material', astronomers claim.\r\nExperts from the University of Tokyo cr… [+6017 chars]" />
 
         <TextView
             android:id="@+id/tv_source"
@@ -95,13 +98,14 @@
 
         <ImageView
             android:id="@+id/iv_read_more"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_content"
-            app:srcCompat="@drawable/ic_baseline_read_more" />
+            app:srcCompat="@drawable/ic_baseline_read_more"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_read_more"

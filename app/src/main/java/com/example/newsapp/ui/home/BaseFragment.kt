@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.newsapp.ui.adapter.PagerAdapter
 import com.example.newsapp.databinding.FragmentBaseBinding
+import com.example.newsapp.ui.adapter.PagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 
@@ -40,7 +40,7 @@ class BaseFragment : Fragment() {
             TabLayoutMediator(tabLayout, viewPager) { tab, position ->
                 when (position) {
                     0 -> {
-                        tab.text = "headlines"
+                        tab.text = "Top"
                     }
                     1 -> {
                         tab.text = "Health"

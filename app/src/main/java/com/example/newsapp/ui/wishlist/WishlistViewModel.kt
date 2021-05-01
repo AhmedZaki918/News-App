@@ -1,7 +1,6 @@
 package com.example.newsapp.ui.wishlist
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.data.repository.WishlistRepo

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
+import com.example.newsapp.data.local.Constants
 import com.example.newsapp.ui.adapter.WishlistAdapter
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.databinding.FragmentWishlistBinding
@@ -66,25 +67,25 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
 
 
     override fun onItemClick(article: Article?, operation: String) {
-        when (operation) {
-            "delete" -> {
-                viewModel?.sendDeleteRequest(article)
+        Constants.apply {
+            when (operation) {
+                DELETE -> {
+                    viewModel?.sendDeleteRequest(article)
+                }
+                SHARE -> {
+                    if (article != null) {
+                        requireActivity().share(article)
+                    } else requireActivity().toast(R.string.missingUrl)
+                }
+                else ->
+                    context?.startActivity(article!!, DetailsActivity::class.java)
             }
-            "share" -> {
-                if (article != null) {
-                    requireActivity().share(article)
-                } else requireActivity().toast(R.string.missingUrl)
-            }
-            else ->
-                context?.startActivity(article!!, DetailsActivity::class.java)
         }
     }
 
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        wishlistAdapter = null
-//        viewModel = null
         _binding = null
     }
 

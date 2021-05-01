@@ -12,6 +12,7 @@ class UserPreferences @Inject constructor(@ApplicationContext context: Context) 
         context.getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor = pref.edit()
 
+
     fun saveData(key: String, value: String) {
         editor.putString(key, value)
         editor.apply()
@@ -19,6 +20,10 @@ class UserPreferences @Inject constructor(@ApplicationContext context: Context) 
 
     fun readData(key: String): Boolean {
         val status = pref.getString(key, "")
-        return status == "true"
+        return status == Constants.TRUE
+    }
+
+    fun readFontSize(key: String): String? {
+        return pref.getString(key, "")
     }
 }

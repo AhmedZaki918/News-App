@@ -1,10 +1,7 @@
 package com.example.newsapp.ui.settings
 
 import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +9,9 @@ import android.widget.CompoundButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.newsapp.R
-import com.example.newsapp.databinding.FragmentSettingsBinding
 import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.local.UserPreferences
+import com.example.newsapp.databinding.FragmentSettingsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -24,6 +21,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class SettingFragment : Fragment(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
@@ -40,15 +38,24 @@ class SettingFragment : Fragment(), View.OnClickListener, CompoundButton.OnCheck
         // Inflate the layout for this fragment
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
+        readData()
         initViews()
         return binding.root
     }
 
 
     override fun onClick(v: View) {
-        if (v.id == R.id.notification_layout) {
-            openNotificationSettings()
+        if (v.id == R.id.cl_font_size) {
+            Intent(requireActivity(), FontActivity::class.java).apply {
+                startActivity(this)
+            }
         }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        readData()
     }
 
 
@@ -63,43 +70,49 @@ class SettingFragment : Fragment(), View.OnClickListener, CompoundButton.OnCheck
     }
 
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+
     private fun initViews() {
         binding.apply {
             // Save the state of switch button
             if (userPreferences.readData(Constants.STATUS)) {
                 switchButton.isChecked = true
             }
-            notificationLayout.setOnClickListener(this@SettingFragment)
             switchButton.setOnCheckedChangeListener(this@SettingFragment)
+            clFontSize.setOnClickListener(this@SettingFragment)
         }
     }
 
 
-    private fun openNotificationSettings() {
-        Intent().apply {
-            when {
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
-                    action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
-                    putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
-                }
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP -> {
-                    action = "android.settings.APP_NOTIFICATION_SETTINGS"
-                    putExtra("app_package", requireActivity().packageName)
-                    putExtra("app_uid", requireActivity().applicationInfo.uid)
-                }
-                else -> {
-                    action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                    addCategory(Intent.CATEGORY_DEFAULT)
-                    data = Uri.parse("package:" + requireActivity().packageName)
+    // Retrieve font size via shared preferences
+    // to update current state of font size textView
+    private fun readData() {
+        binding.apply {
+            Constants.apply {
+                userPreferences.apply {
+                    when {
+                        readFontSize(FONT_SIZE) == FOURTEEN -> {
+                            tvFont.text = SMALL
+                        }
+                        readFontSize(FONT_SIZE) == SIXTEEN -> {
+                            tvFont.text = DEFAULT
+                        }
+                        readFontSize(FONT_SIZE) == EIGHTEEN -> {
+                            tvFont.text = LARGE
+                        }
+                        readFontSize(FONT_SIZE) == TWENTY -> {
+                            tvFont.text = EXTRA_LARGE
+                        }
+                        readFontSize(FONT_SIZE) == TWENTY_TWO -> {
+                            tvFont.text = JUMBO
+                        }
+                    }
                 }
             }
-            requireActivity().startActivity(this)
         }
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

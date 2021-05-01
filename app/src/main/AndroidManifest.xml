@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:name=".ui.BaseApplication"
         android:icon="@mipmap/ic_launcher"
@@ -14,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/splashScreen"
         tools:ignore="AllowBackup">
+        <activity
+            android:name=".ui.settings.FontActivity"
+            android:label="Font Size"
+            android:parentActivityName=".ui.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.details.DetailsActivity"
             android:label="Details"

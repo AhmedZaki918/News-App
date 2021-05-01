@@ -12,7 +12,7 @@ class WishlistRepo @Inject constructor(
     private val articleDao: ArticleDao
 ) {
     // Initialization
-    lateinit var list: LiveData<List<Article>>
+    private lateinit var list: LiveData<List<Article>>
 
 
     // Receive data from database and update ui

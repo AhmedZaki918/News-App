@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.R
 import com.example.newsapp.data.local.ArticleDao
 import com.example.newsapp.data.local.Constants
+import com.example.newsapp.data.local.UserPreferences
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.databinding.ActivityDetailsBinding
 import com.example.newsapp.util.*
@@ -29,6 +30,9 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
     @Inject
     lateinit var articleDao: ArticleDao
 
+    @Inject
+    lateinit var userPreferences: UserPreferences
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +43,6 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
         initViews()
         saveState()
         updateUi()
-        binding.tvReadMore.setOnClickListener(this)
-        binding.cbSave.setOnClickListener(this)
-    }
-
-
-    private fun initViews() {
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
-        val data = intent
-        article = data.getParcelableExtra(Constants.MODEL)!!
     }
 
 
@@ -88,6 +83,19 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    private fun initViews() {
+        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
+        // Retrieve font size saved in shared preferences
+        viewModel.retrieveFont(binding.tvDescription, binding.tvContent)
+
+        val data = intent
+        article = data.getParcelableExtra(Constants.MODEL)!!
+        // Register listeners
+        binding.tvReadMore.setOnClickListener(this)
+        binding.cbSave.setOnClickListener(this)
     }
 
 
