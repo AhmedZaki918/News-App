@@ -27,7 +27,6 @@ class WishlistAdapter(
 
     // Bind view holder
     override fun onBindViewHolder(holder: WishlistViewHolder, position: Int) {
-        // Get current position
         holder.bind(list[position])
     }
 

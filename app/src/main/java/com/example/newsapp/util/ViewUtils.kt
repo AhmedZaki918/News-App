@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.data.local.Constants
@@ -81,3 +83,10 @@ fun switchVisibility(first: View, second: View) {
     first.visibility = View.GONE
     second.visibility = View.VISIBLE
 }
+
+
+fun FragmentManager.createFragment(fragment: Fragment, frameLayout: Int) =
+    this.beginTransaction().apply {
+        replace(frameLayout, fragment)
+        commit()
+    }

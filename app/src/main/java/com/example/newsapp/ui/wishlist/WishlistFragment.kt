@@ -55,13 +55,13 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
     override fun onClick(v: View) {
         if (v.id == R.id.floating_button) {
             // Open alert dialog
-            val builder = AlertDialog.Builder(requireActivity())
-            builder.setTitle(R.string.deleteAll)
-                .setMessage(R.string.deleteMess)
-                .setPositiveButton((R.string.delete)) { _, _ ->
-                    viewModel?.deleteAll()
-                }
-            builder.create().show()
+            AlertDialog.Builder(requireActivity()).apply {
+                setTitle(R.string.deleteAll)
+                    .setMessage(R.string.deleteMess)
+                    .setPositiveButton((R.string.delete)) { _, _ ->
+                        viewModel?.deleteAll()
+                    }.create().show()
+            }
         }
     }
 
@@ -93,9 +93,12 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
     // Update the list of articles
     private fun updateUi(list: List<Article>) {
         if (list.isNotEmpty()) {
-            binding.recyclerView.layoutManager = LinearLayoutManager(activity)
             wishlistAdapter = WishlistAdapter(this@WishlistFragment, list)
-            binding.recyclerView.adapter = wishlistAdapter
+            binding.recyclerView.apply {
+                layoutManager = LinearLayoutManager(activity)
+                adapter = wishlistAdapter
+            }
+
         } else {
             // Display no content saved if the list is empty
             binding.apply {

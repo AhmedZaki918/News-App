@@ -41,4 +41,5 @@
     <string name="delete_photo">delete photo</string>
     <string name="share_article">share an article</string>
     <string name="saved_on">Saved on</string>
+    <string name="try_connection">Please check your internet connection and try again</string>
 </resources>

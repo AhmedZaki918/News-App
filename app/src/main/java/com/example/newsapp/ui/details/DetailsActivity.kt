@@ -49,10 +49,12 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tv_read_more -> {
-                intent = Intent(Intent.ACTION_VIEW)
-                intent.data = Uri.parse(article.url)
-                startActivity(intent)
+                Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(article.url)
+                    startActivity(this)
+                }
             }
+
             R.id.cb_save -> {
                 if (binding.cbSave.isChecked) {
                     viewModel.createOperation(article, Constants.SAVE)
@@ -90,9 +92,8 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
         viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
         // Retrieve font size saved in shared preferences
         viewModel.retrieveFont(binding.tvDescription, binding.tvContent)
-
-        val data = intent
-        article = data.getParcelableExtra(Constants.MODEL)!!
+        // Display article details via parcelable
+        article = intent.getParcelableExtra(Constants.MODEL)!!
         // Register listeners
         binding.tvReadMore.setOnClickListener(this)
         binding.cbSave.setOnClickListener(this)
@@ -129,8 +130,7 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
     @Suppress("SENSELESS_COMPARISON")
     private fun saveState() {
         Coroutines.background {
-            val data = articleDao.fetchInArticles(article.title)
-            binding.cbSave.isChecked = data != null
+            binding.cbSave.isChecked = articleDao.fetchInArticles(article.title) != null
         }
     }
 }
