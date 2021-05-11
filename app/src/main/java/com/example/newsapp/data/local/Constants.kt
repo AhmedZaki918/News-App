@@ -18,6 +18,7 @@ object Constants {
     const val REMOVE = "REMOVE"
     const val DELETE = "delete"
     const val SHARE = "share"
+    const val TYPE_SHARE = "text/plain"
 
     // Shared Preferences
     const val MyPREFERENCES = "MyPrefs"

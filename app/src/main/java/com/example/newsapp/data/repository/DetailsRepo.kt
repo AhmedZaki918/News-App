@@ -1,5 +1,6 @@
 package com.example.newsapp.data.repository
 
+import android.view.View
 import android.widget.TextView
 import com.example.newsapp.data.local.ArticleDao
 import com.example.newsapp.data.model.Article

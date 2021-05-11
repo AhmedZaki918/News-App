@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.View.GONE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.R
@@ -20,6 +21,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
+@Suppress("SENSELESS_COMPARISON")
 class DetailsActivity : AppCompatActivity(), View.OnClickListener {
 
     // Initialization
@@ -41,7 +43,10 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
 
         initViews()
-        saveState()
+        // Save the state of check box
+        Coroutines.background {
+            binding.cbSave.isChecked = articleDao.fetchInArticles(article.title) != null
+        }
         updateUi()
     }
 
@@ -94,7 +99,6 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
         viewModel.retrieveFont(binding.tvDescription, binding.tvContent)
         // Display article details via parcelable
         article = intent.getParcelableExtra(Constants.MODEL)!!
-        // Register listeners
         binding.tvReadMore.setOnClickListener(this)
         binding.cbSave.setOnClickListener(this)
     }
@@ -103,34 +107,24 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
     private fun updateUi() {
         // Display image
         binding.apply {
-            if (article.urlToImage == null) {
-                imageView.visibility = View.GONE
-            } else {
+            if (article.urlToImage == null) imageView.visibility = GONE
+            else {
                 imageView.setupGlide(
                     article.urlToImage,
                     this@DetailsActivity.applicationContext
                 )
             }
             // Check nullable from api
-            article.apply {
-                tvContent.checkNull(content)
-                tvDescription.checkNull(description)
-                tvDate.checkNull(publishedAt)
-                if (tvAuthor.checkNull(author)) {
-                    tvBy.visibility = View.GONE
+            viewModel.apply {
+                article.apply {
+                    checkNull(tvContent, content)
+                    checkNull(tvDescription, description)
+                    checkNull(tvDate, publishedAt)
+                    checkNull(tvTitle, title)
+                    checkNull(tvSource, source?.name)
+                    if (checkNull(tvAuthor, author)) tvBy.visibility = GONE
                 }
-                tvTitle.checkNull(title)
-                tvSource.checkNull(source?.name)
             }
-        }
-    }
-
-
-    // Save the state of check box
-    @Suppress("SENSELESS_COMPARISON")
-    private fun saveState() {
-        Coroutines.background {
-            binding.cbSave.isChecked = articleDao.fetchInArticles(article.title) != null
         }
     }
 }

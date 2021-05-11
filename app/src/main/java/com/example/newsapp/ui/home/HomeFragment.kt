@@ -3,6 +3,7 @@ package com.example.newsapp.ui.home
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -49,7 +50,6 @@ class HomeFragment @Inject constructor(private val category: String) :
 
         initViews()
         handleLoadState()
-        // Update ui
         Coroutines.main {
             viewModel.getData(category).collectLatest { pagedData ->
                 homeAdapter.submitData(pagedData)
@@ -113,7 +113,7 @@ class HomeFragment @Inject constructor(private val category: String) :
 
     override fun onClick(v: View) {
         if (v.id == R.id.btn_retry) {
-            binding.btnRetry.visibility = View.GONE
+            binding.btnRetry.visibility = GONE
             homeAdapter.retry()
         }
     }

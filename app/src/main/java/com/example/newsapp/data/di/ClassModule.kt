@@ -1,9 +1,11 @@
 package com.example.newsapp.data.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.net.ConnectivityManager
 import com.example.newsapp.R
+import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.local.UserPreferences
 import com.example.newsapp.util.NetworkConnection
 import dagger.Module
@@ -17,9 +19,25 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ClassModule {
 
+
     @Provides
     @Singleton
-    fun provideUserPref(@ApplicationContext context: Context) = UserPreferences(context)
+    fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideEditor(@ApplicationContext context: Context): SharedPreferences.Editor {
+        return provideSharedPreferences(context).edit()
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideUserPref(@ApplicationContext context: Context) =
+        UserPreferences(provideSharedPreferences(context), provideEditor(context))
 
 
     @Provides

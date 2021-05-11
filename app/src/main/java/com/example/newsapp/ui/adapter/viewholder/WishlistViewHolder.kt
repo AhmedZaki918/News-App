@@ -1,6 +1,8 @@
 package com.example.newsapp.ui.adapter.viewholder
 
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.R
 import com.example.newsapp.data.local.Constants
@@ -8,7 +10,6 @@ import com.example.newsapp.data.model.Article
 import com.example.newsapp.databinding.LayoutWishilstBinding
 import com.example.newsapp.util.OnAdapterClick
 import com.example.newsapp.util.setupGlide
-import com.example.newsapp.util.switchVisibility
 
 
 class WishlistViewHolder(
@@ -34,7 +35,8 @@ class WishlistViewHolder(
             // if the image is null
             article.urlToImage.apply {
                 if (this.isNullOrEmpty()) {
-                    switchVisibility(ivArticle, ivNoImage)
+                    ivArticle.visibility = GONE
+                    ivNoImage.visibility = VISIBLE
                     ivNoImage.setImageResource(R.drawable.no_image)
                     // Image is not null
                 } else ivArticle.setupGlide(this, itemView)

@@ -1,17 +1,12 @@
 package com.example.newsapp.data.local
 
-import android.content.Context
 import android.content.SharedPreferences
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class UserPreferences @Inject constructor(@ApplicationContext context: Context) {
-
-
-    private var pref: SharedPreferences =
-        context.getSharedPreferences(Constants.MyPREFERENCES, Context.MODE_PRIVATE)
-    private val editor: SharedPreferences.Editor = pref.edit()
-
+class UserPreferences @Inject constructor(
+    private var pref: SharedPreferences,
+    private val editor: SharedPreferences.Editor
+) {
 
     fun saveData(key: String, value: String) {
         editor.putString(key, value)

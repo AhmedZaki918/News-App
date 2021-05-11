@@ -6,16 +6,15 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.data.local.Constants
-import com.example.newsapp.ui.adapter.WishlistAdapter
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.databinding.FragmentWishlistBinding
+import com.example.newsapp.ui.adapter.WishlistAdapter
 import com.example.newsapp.ui.details.DetailsActivity
 import com.example.newsapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 /**
  * A simple [Fragment] subclass.
  */
+
+
 @AndroidEntryPoint
 class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
 
@@ -55,13 +56,13 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
     override fun onClick(v: View) {
         if (v.id == R.id.floating_button) {
             // Open alert dialog
-            AlertDialog.Builder(requireActivity()).apply {
-                setTitle(R.string.deleteAll)
-                    .setMessage(R.string.deleteMess)
-                    .setPositiveButton((R.string.delete)) { _, _ ->
-                        viewModel?.deleteAll()
-                    }.create().show()
-            }
+            alert(R.string.deleteAll, R.string.deleteMess) {
+                positiveButton(R.string.delete) {
+                    viewModel?.deleteAll()
+                }
+                negativeButton(R.string.cancel) {
+                }
+            }.show()
         }
     }
 

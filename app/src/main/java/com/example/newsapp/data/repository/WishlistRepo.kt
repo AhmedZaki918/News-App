@@ -25,9 +25,7 @@ class WishlistRepo @Inject constructor(
     // Delete one item from database
     fun deleteArticle(article: Article?) {
         Coroutines.background {
-            if (article != null) {
-                articleDao.deleteArticle(article)
-            }
+            if (article != null) articleDao.deleteArticle(article)
         }
     }
 

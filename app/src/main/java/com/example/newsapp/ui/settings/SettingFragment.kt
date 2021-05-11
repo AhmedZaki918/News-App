@@ -1,6 +1,5 @@
 package com.example.newsapp.ui.settings
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,22 +11,19 @@ import com.example.newsapp.R
 import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.local.UserPreferences
 import com.example.newsapp.databinding.FragmentSettingsBinding
+import com.example.newsapp.util.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
-/**
- * A simple [Fragment] subclass.
- */
 @AndroidEntryPoint
-class SettingFragment : Fragment(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+class SettingFragment @Inject constructor(
+    var userPreferences: UserPreferences
+) : Fragment(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
-
-    @Inject
-    lateinit var userPreferences: UserPreferences
 
 
     override fun onCreateView(
@@ -45,11 +41,8 @@ class SettingFragment : Fragment(), View.OnClickListener, CompoundButton.OnCheck
 
 
     override fun onClick(v: View) {
-        if (v.id == R.id.cl_font_size) {
-            Intent(requireActivity(), FontActivity::class.java).apply {
-                startActivity(this)
-            }
-        }
+        if (v.id == R.id.cl_font_size)
+            context?.startActivity(FontActivity::class.java)
     }
 
 
@@ -61,11 +54,8 @@ class SettingFragment : Fragment(), View.OnClickListener, CompoundButton.OnCheck
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         Constants.apply {
-            if (isChecked) {
-                userPreferences.saveData(STATUS, TRUE)
-            } else if (!isChecked) {
-                userPreferences.saveData(STATUS, FALSE)
-            }
+            if (isChecked) userPreferences.saveData(STATUS, TRUE)
+            else if (!isChecked) userPreferences.saveData(STATUS, FALSE)
         }
     }
 
@@ -79,9 +69,8 @@ class SettingFragment : Fragment(), View.OnClickListener, CompoundButton.OnCheck
     private fun initViews() {
         binding.apply {
             // Save the state of switch button
-            if (userPreferences.readData(Constants.STATUS)) {
-                switchButton.isChecked = true
-            }
+            if (userPreferences.readData(Constants.STATUS)) switchButton.isChecked = true
+            // Register listeners
             switchButton.setOnCheckedChangeListener(this@SettingFragment)
             clFontSize.setOnClickListener(this@SettingFragment)
         }

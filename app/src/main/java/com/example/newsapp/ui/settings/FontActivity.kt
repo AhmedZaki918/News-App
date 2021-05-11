@@ -11,7 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FontActivity : AppCompatActivity() {
+class FontActivity @Inject constructor() : AppCompatActivity() {
 
     private lateinit var binding: ActivityFontBinding
 

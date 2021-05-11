@@ -1,12 +1,13 @@
 package com.example.newsapp.util
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.widget.ImageView
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.bumptech.glide.Glide
@@ -36,19 +37,17 @@ fun ProgressBar.show() {
 
 
 fun <T> Context.startActivity(article: Article?, cls: Class<T>) {
-    val intent = Intent(this, cls)
-    intent.putExtra(Constants.MODEL, article)
-    this.startActivity(intent)
+    Intent(this, cls).apply {
+        putExtra(Constants.MODEL, article)
+        startActivity(this)
+    }
 }
 
 
-fun TextView.checkNull(content: String?): Boolean {
-    if (content.isNullOrEmpty()) {
-        this.visibility = View.GONE
-        return true
-    } else
-        this.text = content
-    return false
+fun <T> Context.startActivity(cls: Class<T>) {
+    Intent(this, cls).apply {
+        startActivity(this)
+    }
 }
 
 
@@ -69,19 +68,12 @@ fun ImageView.setupGlide(url: String?, context: Context) {
 
 
 fun Context.share(article: Article?) {
-    val intent = Intent()
-    intent.apply {
+    Intent().apply {
         action = Intent.ACTION_SEND
         putExtra(Intent.EXTRA_TEXT, article?.url)
-        type = "text/plain"
+        type = Constants.TYPE_SHARE
         startActivity(this)
     }
-}
-
-
-fun switchVisibility(first: View, second: View) {
-    first.visibility = View.GONE
-    second.visibility = View.VISIBLE
 }
 
 
@@ -90,3 +82,27 @@ fun FragmentManager.createFragment(fragment: Fragment, frameLayout: Int) =
         replace(frameLayout, fragment)
         commit()
     }
+
+
+//inline fun Fragment.alert(
+//    titleResource: Int = 0,
+//    messageResource: Int = 0,
+//    noinline action: () -> Unit,
+//    func: AlertDialogHelper.() -> Unit
+//) {
+//    val title = if (titleResource == 0) null else getString(titleResource)
+//    val message = if (messageResource == 0) null else getString(messageResource)
+//    AlertDialogHelper(this.requireContext(), title, message,action).apply {
+//        func()
+//    }.builder
+//}
+//
+//class AlertDialogHelper(var context: Context, title: CharSequence?, message: CharSequence?, action: () -> Unit) {
+//
+//    val builder = AlertDialog.Builder(context).apply {
+//        setTitle(title)
+//            .setMessage(message)
+//            .setPositiveButton((R.string.deleteMess)) { _, _ ->
+//            }.create().show()
+//    }
+//}

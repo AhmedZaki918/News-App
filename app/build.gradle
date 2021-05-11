@@ -83,7 +83,7 @@ dependencies {
 
     // Paging
     //noinspection KtxExtensionAvailable
-    implementation 'androidx.paging:paging-runtime:3.0.0-rc01'
+    implementation 'androidx.paging:paging-runtime:3.0.0'
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"

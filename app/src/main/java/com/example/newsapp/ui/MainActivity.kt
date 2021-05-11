@@ -1,11 +1,11 @@
 package com.example.newsapp.ui
 
 import android.media.MediaPlayer
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.annotation.RequiresApi
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import com.example.newsapp.R
 import com.example.newsapp.data.local.Constants
@@ -14,17 +14,13 @@ import com.example.newsapp.databinding.ActivityMainBinding
 import com.example.newsapp.ui.home.BaseFragment
 import com.example.newsapp.ui.settings.SettingFragment
 import com.example.newsapp.ui.wishlist.WishlistFragment
-import com.example.newsapp.util.Coroutines
-import com.example.newsapp.util.NetworkConnection
-import com.example.newsapp.util.createFragment
-import com.example.newsapp.util.toast
+import com.example.newsapp.util.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-@RequiresApi(Build.VERSION_CODES.N)
 class MainActivity : AppCompatActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -57,15 +53,7 @@ class MainActivity : AppCompatActivity(),
                 if (userPreferences.readData(Constants.STATUS)) mp.start()
                 supportFragmentManager.createFragment(homeFragment, R.id.frame_layout)
             } else {
-                // No Connection
-                binding.apply {
-                    networkConnection.switchVisibility(
-                        ivNoConnection,
-                        bottomNavigationView,
-                        btnRetry,
-                        tvConnectionLost
-                    )
-                }
+                switchVisibility()
             }
         }
     }
@@ -97,7 +85,7 @@ class MainActivity : AppCompatActivity(),
     private fun initViews() {
         homeFragment = BaseFragment()
         wishlistFragment = WishlistFragment()
-        settingFragment = SettingFragment()
+        settingFragment = SettingFragment(userPreferences)
         binding.apply {
             bottomNavigationView.setOnNavigationItemSelectedListener(this@MainActivity)
             btnRetry.setOnClickListener(this@MainActivity)
@@ -111,22 +99,33 @@ class MainActivity : AppCompatActivity(),
             // If there's a network available
             if (networkConnection.isConnected) {
                 Coroutines.main {
-                    binding.apply {
-                        networkConnection.switchVisibility(
-                            ivNoConnection,
-                            bottomNavigationView,
-                            btnRetry,
-                            tvConnectionLost
-                        )
-                    }
+                    switchVisibility()
                     if (userPreferences.readData(Constants.STATUS)) mp.start()
                     supportFragmentManager.createFragment(homeFragment, R.id.frame_layout)
                 }
             } else {
-                // No Connection
                 Coroutines.main {
                     toast(R.string.connection_lost)
                 }
+            }
+        }
+    }
+
+
+    // Switch visibility for views depends on network state
+    private fun switchVisibility() {
+        binding.apply {
+            if (networkConnection.isConnected) {
+                ivNoConnection.visibility = GONE
+                btnRetry.visibility = GONE
+                tvConnectionLost.visibility = GONE
+                bottomNavigationView.visibility = VISIBLE
+
+            } else {
+                ivNoConnection.visibility = VISIBLE
+                btnRetry.visibility = VISIBLE
+                tvConnectionLost.visibility = VISIBLE
+                bottomNavigationView.visibility = GONE
             }
         }
     }

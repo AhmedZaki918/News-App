@@ -40,10 +40,7 @@ class HomeAdapter @Inject constructor(
     // Get type of view
     override fun getItemViewType(position: Int): Int {
         val url = getItem(position)?.urlToImage
-        if (url.isNullOrEmpty()) {
-            return 0
-        }
-        return 1
+        return if (url.isNullOrEmpty()) 0 else 1
     }
 
     // Bind view holder
