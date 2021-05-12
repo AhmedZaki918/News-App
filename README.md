@@ -59,7 +59,7 @@ to aquire api key for your app.
 
 ## YouTube link 
 
-<img src="images/2-saved.jpg">
+<img src="images/thumbnail.png" width="200">
 
 (https://www.youtube.com/watch?v=DF-tLjI5BYQ)
 
