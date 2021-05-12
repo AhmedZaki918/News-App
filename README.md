@@ -12,7 +12,7 @@
 ## General info
 
 This android app created with google api news, Included with four categories topics: top, health,
-tech and sports.
+tech and sports, Implemented with SOLID principal and clean code.
 
 ## Screenshots
 
