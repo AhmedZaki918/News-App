@@ -15,8 +15,7 @@ import com.example.newsapp.util.OnAdapterClick
 import javax.inject.Inject
 
 class HomeAdapter @Inject constructor(
-    private val onAdapterClick: OnAdapterClick,
-    private val articleDao: ArticleDao
+    private val onAdapterClick: OnAdapterClick
 ) : PagingDataAdapter<Article, RecyclerView.ViewHolder>(Constants.USER_COMPARATOR) {
 
 
@@ -27,13 +26,13 @@ class HomeAdapter @Inject constructor(
                 LayoutSecondBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent, false
-                ), onAdapterClick, articleDao
+                ), onAdapterClick
             )
         } else FirstViewHolder(
             LayoutHomeBinding.inflate(
                 LayoutInflater.from(parent.context), parent,
                 false
-            ), onAdapterClick, articleDao
+            ), onAdapterClick
         )
     }
 

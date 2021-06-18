@@ -5,7 +5,7 @@ import com.example.newsapp.data.model.Article
 
 object Constants {
     const val BASE_URL = "https://newsapi.org/v2/"
-    const val API_KEY = "Your Api Key"
+    const val API_KEY = "ca9c1cab47bb435ca4288f360849c3d2"
     const val PAGE_SIZE = 20
     const val STARTING_PAGE_INDEX = 1
     const val MODEL = "ARTICLE_MODEL"
@@ -14,8 +14,7 @@ object Constants {
     const val SPORT = "sports"
     const val HEALTH = "health"
     const val ALL = "ALL_CATEGORY"
-    const val SAVE = "SAVE"
-    const val REMOVE = "REMOVE"
+    const val SAVE = "SHARE"
     const val DELETE = "delete"
     const val SHARE = "share"
     const val TYPE_SHARE = "text/plain"

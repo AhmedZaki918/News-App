@@ -82,27 +82,3 @@ fun FragmentManager.createFragment(fragment: Fragment, frameLayout: Int) =
         replace(frameLayout, fragment)
         commit()
     }
-
-
-//inline fun Fragment.alert(
-//    titleResource: Int = 0,
-//    messageResource: Int = 0,
-//    noinline action: () -> Unit,
-//    func: AlertDialogHelper.() -> Unit
-//) {
-//    val title = if (titleResource == 0) null else getString(titleResource)
-//    val message = if (messageResource == 0) null else getString(messageResource)
-//    AlertDialogHelper(this.requireContext(), title, message,action).apply {
-//        func()
-//    }.builder
-//}
-//
-//class AlertDialogHelper(var context: Context, title: CharSequence?, message: CharSequence?, action: () -> Unit) {
-//
-//    val builder = AlertDialog.Builder(context).apply {
-//        setTitle(title)
-//            .setMessage(message)
-//            .setPositiveButton((R.string.deleteMess)) { _, _ ->
-//            }.create().show()
-//    }
-//}

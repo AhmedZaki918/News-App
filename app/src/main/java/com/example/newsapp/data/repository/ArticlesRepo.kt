@@ -2,19 +2,16 @@ package com.example.newsapp.data.repository
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.newsapp.data.local.ArticleDao
+import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.data.model.ArticlesResponse
 import com.example.newsapp.data.network.APIService
-import com.example.newsapp.data.local.Constants
-import com.example.newsapp.util.Coroutines
 import javax.inject.Inject
 import javax.inject.Singleton
 
 
 @Singleton
 class ArticlesRepo @Inject constructor(
-    private val articleDao: ArticleDao,
     private val api: APIService,
     private val category: String
 ) : PagingSource<Int, Article>() {
@@ -62,16 +59,6 @@ class ArticlesRepo @Inject constructor(
                     api.getCategory(API_KEY, LANGUAGE, SPORT, page)
                 }
             }
-        }
-    }
-
-
-    // Add an article to database or remove it
-    fun addOrRemove(article: Article?, operation: String) {
-        Coroutines.background {
-            if (operation == Constants.SAVE) articleDao.addArticle(article!!)
-            else
-                articleDao.deleteArticle(article!!)
         }
     }
 }

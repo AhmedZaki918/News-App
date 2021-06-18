@@ -10,11 +10,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
-import com.example.newsapp.ui.adapter.HomeAdapter
-import com.example.newsapp.data.local.ArticleDao
 import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.databinding.FragmentHomeBinding
+import com.example.newsapp.ui.adapter.HomeAdapter
 import com.example.newsapp.ui.details.DetailsActivity
 import com.example.newsapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,8 +30,6 @@ class HomeFragment @Inject constructor(private val category: String) :
     OnAdapterClick,
     View.OnClickListener {
 
-    @Inject
-    lateinit var articleDao: ArticleDao
 
     // Initialization
     private var _binding: FragmentHomeBinding? = null
@@ -60,7 +57,7 @@ class HomeFragment @Inject constructor(private val category: String) :
 
 
     private fun initViews() {
-        homeAdapter = HomeAdapter(this, articleDao)
+        homeAdapter = HomeAdapter(this)
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = homeAdapter
@@ -95,13 +92,8 @@ class HomeFragment @Inject constructor(private val category: String) :
     override fun onItemClick(article: Article?, operation: String) {
         Constants.apply {
             when (operation) {
-                SAVE -> {
-                    viewModel.createOperation(article, operation)
-                    requireActivity().toast(R.string.saved)
-                }
-                REMOVE -> {
-                    viewModel.createOperation(article, operation)
-                    requireActivity().toast(R.string.removed)
+                SHARE -> {
+                    requireContext().share(article)
                 }
                 else -> {
                     context?.startActivity(article, DetailsActivity::class.java)

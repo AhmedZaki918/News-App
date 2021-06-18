@@ -19,7 +19,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/ch_save"
+        app:layout_constraintEnd_toStartOf="@id/ib_share"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Business is booming for nonprofit bike shop all around the Business is booming for nonprofit bi" />
@@ -48,16 +48,17 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:text="bbc.com/news" />
 
-    <CheckBox
-        android:id="@+id/ch_save"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/toggle_selector"
-        android:button="@null"
+
+    <!-- Share Button -->
+    <ImageButton
+        android:id="@+id/ib_share"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/share_article"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_share" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
