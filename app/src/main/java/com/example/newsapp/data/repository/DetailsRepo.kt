@@ -1,11 +1,10 @@
 package com.example.newsapp.data.repository
 
-import android.view.View
 import android.widget.TextView
 import com.example.newsapp.data.local.ArticleDao
-import com.example.newsapp.data.model.Article
 import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.local.UserPreferences
+import com.example.newsapp.data.model.Article
 import com.example.newsapp.util.Coroutines
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -17,13 +17,14 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class SettingFragment @Inject constructor(
-    var userPreferences: UserPreferences
-) : Fragment(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+class SettingFragment : Fragment(), View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var userPreferences: UserPreferences
 
 
     override fun onCreateView(

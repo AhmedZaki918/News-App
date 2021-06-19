@@ -4,11 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapp.R
 import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.model.Article
@@ -28,7 +30,7 @@ import javax.inject.Inject
 class HomeFragment @Inject constructor(private val category: String) :
     Fragment(),
     OnAdapterClick,
-    View.OnClickListener {
+    View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
 
     // Initialization
@@ -36,6 +38,9 @@ class HomeFragment @Inject constructor(private val category: String) :
     private val binding get() = _binding!!
     private lateinit var homeAdapter: HomeAdapter
     private lateinit var viewModel: MainViewModel
+
+    @Inject
+    lateinit var networkConnection: NetworkConnection
 
 
     override fun onCreateView(
@@ -64,6 +69,7 @@ class HomeFragment @Inject constructor(private val category: String) :
         }
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.btnRetry.setOnClickListener(this)
+        binding.switchRefresh.setOnRefreshListener(this)
     }
 
 
@@ -80,7 +86,7 @@ class HomeFragment @Inject constructor(private val category: String) :
                     }
                     is LoadState.Error -> {
                         loadingIndicator.hide()
-                        btnRetry.visibility = View.VISIBLE
+                        btnRetry.visibility = VISIBLE
                         requireActivity().toast((it.refresh as LoadState.Error).error.message)
                     }
                 }
@@ -114,5 +120,14 @@ class HomeFragment @Inject constructor(private val category: String) :
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+
+    override fun onRefresh() {
+        if (networkConnection.isConnected) {
+            homeAdapter.retry()
+            homeAdapter.notifyDataSetChanged()
+        } else requireContext().toast(R.string.connection_lost)
+        binding.switchRefresh.isRefreshing = false
     }
 }

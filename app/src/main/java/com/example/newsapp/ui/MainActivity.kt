@@ -25,9 +25,15 @@ class MainActivity : AppCompatActivity(),
     BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var homeFragment: BaseFragment
-    private lateinit var wishlistFragment: WishlistFragment
-    private lateinit var settingFragment: SettingFragment
+
+    @Inject
+    lateinit var baseFragment: BaseFragment
+
+    @Inject
+    lateinit var settingFragment: SettingFragment
+
+    @Inject
+    lateinit var wishlistFragment: WishlistFragment
 
     @Inject
     lateinit var networkConnection: NetworkConnection
@@ -49,12 +55,8 @@ class MainActivity : AppCompatActivity(),
         // If there's a network available
         networkConnection.registerNetworkCallback()
         Coroutines.background {
-            if (networkConnection.isConnected) {
-                if (userPreferences.readData(Constants.STATUS)) mp.start()
-                supportFragmentManager.createFragment(homeFragment, R.id.frame_layout)
-            } else {
-                switchVisibility()
-            }
+            if (networkConnection.isConnected) goToHomeFragment {}
+            else switchVisibility()
         }
     }
 
@@ -67,7 +69,7 @@ class MainActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         supportFragmentManager.apply {
             when (item.itemId) {
-                R.id.ic_home -> createFragment(homeFragment, R.id.frame_layout)
+                R.id.ic_home -> createFragment(baseFragment, R.id.frame_layout)
                 R.id.ic_favourite -> createFragment(wishlistFragment, R.id.frame_layout)
                 R.id.ic_setting -> createFragment(settingFragment, R.id.frame_layout)
             }
@@ -83,9 +85,6 @@ class MainActivity : AppCompatActivity(),
 
 
     private fun initViews() {
-        homeFragment = BaseFragment()
-        wishlistFragment = WishlistFragment()
-        settingFragment = SettingFragment(userPreferences)
         binding.apply {
             bottomNavigationView.setOnNavigationItemSelectedListener(this@MainActivity)
             btnRetry.setOnClickListener(this@MainActivity)
@@ -96,18 +95,22 @@ class MainActivity : AppCompatActivity(),
     private fun retryConnection() {
         networkConnection.registerNetworkCallback()
         Coroutines.background {
-            // If there's a network available
             if (networkConnection.isConnected) {
-                Coroutines.main {
-                    switchVisibility()
-                    if (userPreferences.readData(Constants.STATUS)) mp.start()
-                    supportFragmentManager.createFragment(homeFragment, R.id.frame_layout)
-                }
+                goToHomeFragment { switchVisibility() }
             } else {
                 Coroutines.main {
                     toast(R.string.connection_lost)
                 }
             }
+        }
+    }
+
+
+    private fun goToHomeFragment(method: () -> Unit?) {
+        Coroutines.main {
+            if (userPreferences.readData(Constants.STATUS)) mp.start()
+            supportFragmentManager.createFragment(baseFragment, R.id.frame_layout)
+            method()
         }
     }
 

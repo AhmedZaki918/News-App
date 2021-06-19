@@ -1,7 +1,7 @@
 package com.example.newsapp.data.di
 
-import com.example.newsapp.data.network.APIService
 import com.example.newsapp.data.local.Constants
+import com.example.newsapp.data.network.APIService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -11,12 +11,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class FontActivity @Inject constructor() : AppCompatActivity() {
+class FontActivity @Inject constructor() : AppCompatActivity(), SeekBar.OnSeekBarChangeListener {
 
-    private lateinit var binding: ActivityFontBinding
 
     @Inject
     lateinit var userPreferences: UserPreferences
+    private lateinit var binding: ActivityFontBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,22 +26,12 @@ class FontActivity @Inject constructor() : AppCompatActivity() {
         setContentView(binding.root)
 
         // Retrieve data from shared preferences
-        readData()
-        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(
-                seekBar: SeekBar?, progress: Int, fromUser: Boolean
-            ) {
-                FontPreferences(userPreferences).apply {
-                    editFontSize(progress, binding.tvFontSize, binding.tvPreview)
-                }
+        binding.apply {
+            FontPreferences(userPreferences).apply {
+                readData(tvFontSize, tvPreview, seekBar)
             }
-
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-            }
-        })
+        }
+        binding.seekBar.setOnSeekBarChangeListener(this)
     }
 
 
@@ -55,11 +46,15 @@ class FontActivity @Inject constructor() : AppCompatActivity() {
     }
 
 
-    private fun readData() {
-        binding.apply {
-            FontPreferences(userPreferences).apply {
-                readData(tvFontSize, tvPreview, seekBar)
-            }
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        FontPreferences(userPreferences).apply {
+            editFontSize(progress, binding.tvFontSize, binding.tvPreview)
         }
+    }
+
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+    }
+
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
     }
 }

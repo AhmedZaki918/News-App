@@ -2,12 +2,8 @@ package com.example.newsapp.data.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.media.MediaPlayer
-import android.net.ConnectivityManager
-import com.example.newsapp.R
 import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.local.UserPreferences
-import com.example.newsapp.util.NetworkConnection
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ClassModule {
+object PreferencesModule {
 
 
     @Provides
@@ -38,23 +34,4 @@ object ClassModule {
     @Singleton
     fun provideUserPref(@ApplicationContext context: Context) =
         UserPreferences(provideSharedPreferences(context), provideEditor(context))
-
-
-    @Provides
-    fun provideMediaPlayer(@ApplicationContext context: Context): MediaPlayer {
-        return MediaPlayer.create(context, R.raw.intro)
-    }
-
-
-    @Provides
-    @Singleton
-    fun provideNetworkConnection(@ApplicationContext context: Context) =
-        NetworkConnection(provideConnectivityManager(context))
-
-
-    @Provides
-    @Singleton
-    fun provideConnectivityManager(@ApplicationContext context: Context): ConnectivityManager {
-        return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    }
 }

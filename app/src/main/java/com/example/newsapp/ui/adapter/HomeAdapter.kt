@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newsapp.data.local.ArticleDao
 import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.databinding.LayoutHomeBinding
@@ -36,11 +35,13 @@ class HomeAdapter @Inject constructor(
         )
     }
 
+
     // Get type of view
     override fun getItemViewType(position: Int): Int {
         val url = getItem(position)?.urlToImage
         return if (url.isNullOrEmpty()) 0 else 1
     }
+
 
     // Bind view holder
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {

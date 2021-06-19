@@ -14,20 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/splashScreen"
         tools:ignore="AllowBackup">
-        <activity android:name=".ui.ConnectionActivity" />
         <activity
             android:name=".ui.settings.FontActivity"
             android:label="Font Size"
             android:parentActivityName=".ui.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.details.DetailsActivity"
             android:label="Details"
             android:parentActivityName=".ui.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

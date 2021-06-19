@@ -20,7 +20,6 @@ object RoomModule {
             .fallbackToDestructiveMigration()
             .build()
 
-
     @Provides
     fun provideDao(db: ArticleDatabase) = db.getArticleDao()
 }
