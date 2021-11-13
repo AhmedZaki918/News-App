@@ -18,6 +18,7 @@ import com.example.newsapp.ui.adapter.WishlistAdapter
 import com.example.newsapp.ui.details.DetailsActivity
 import com.example.newsapp.util.*
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 
 /**
@@ -31,7 +32,7 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
     // Initialization
     private var _binding: FragmentWishlistBinding? = null
     private val binding get() = _binding!!
-    private var wishlistAdapter: WishlistAdapter? = null
+    private lateinit var wishlistAdapter: WishlistAdapter
     private var viewModel: WishlistViewModel? = null
 
 
@@ -43,12 +44,13 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
         // Inflate the layout for this fragment
         _binding = FragmentWishlistBinding.inflate(inflater, container, false)
 
-        viewModel = ViewModelProvider(this).get(WishlistViewModel::class.java)
-        viewModel?.sendRequest()?.observe(viewLifecycleOwner, {
-            updateUi(it)
-        })
-
-        binding.floatingButton.setOnClickListener(this)
+        initViews()
+        handleLoadState()
+        Coroutines.main {
+            viewModel?.sendRequest()?.collectLatest {
+                wishlistAdapter.submitData(it)
+            }
+        }
         return binding.root
     }
 
@@ -60,8 +62,7 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
                 positiveButton(R.string.delete) {
                     viewModel?.deleteAll()
                 }
-                negativeButton(R.string.cancel) {
-                }
+                negativeButton(R.string.cancel) {}
             }.show()
         }
     }
@@ -87,27 +88,30 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        if (_binding == null) _binding = null
     }
 
 
-    // Update the list of articles
-    private fun updateUi(list: List<Article>) {
-        if (list.isNotEmpty()) {
-            wishlistAdapter = WishlistAdapter(this@WishlistFragment, list)
-            binding.recyclerView.apply {
-                layoutManager = LinearLayoutManager(activity)
-                adapter = wishlistAdapter
-            }
+    private fun initViews() {
+        wishlistAdapter = WishlistAdapter(this)
+        binding.recyclerView.adapter = wishlistAdapter
+        viewModel = ViewModelProvider(this).get(WishlistViewModel::class.java)
+        binding.floatingButton.setOnClickListener(this)
+    }
 
-        } else {
-            // Display no content saved if the list is empty
-            binding.apply {
-                recyclerView.visibility = GONE
-                tvNoContent.visibility = VISIBLE
-                tvDescription.visibility = VISIBLE
-                ivNoArticles.visibility = VISIBLE
-                floatingButton.visibility = GONE
+
+    private fun handleLoadState() {
+        wishlistAdapter.addLoadStateListener {
+            if (it.append.endOfPaginationReached) {
+                if (wishlistAdapter.itemCount < 1) {
+                    binding.apply {
+                        floatingButton.visibility = GONE
+                        recyclerView.visibility = GONE
+                        tvNoContent.visibility = VISIBLE
+                        tvDescription.visibility = VISIBLE
+                        ivNoArticles.visibility = VISIBLE
+                    }
+                }
             }
         }
     }

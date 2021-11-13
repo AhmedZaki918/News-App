@@ -1,6 +1,6 @@
 package com.example.newsapp.data.local
 
-import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.*
 import com.example.newsapp.data.model.Article
 
@@ -12,7 +12,7 @@ interface ArticleDao {
     suspend fun addArticle(article: Article)
 
     @Query("SELECT * FROM articles")
-    fun getAllArticles(): LiveData<List<Article>>
+    fun getAllArticles(): PagingSource<Int, Article>
 
     @Query("SELECT * FROM articles WHERE title = :title")
     suspend fun fetchInArticles(title: String?): Article

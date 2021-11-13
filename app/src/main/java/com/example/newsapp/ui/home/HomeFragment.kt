@@ -63,10 +63,7 @@ class HomeFragment @Inject constructor(private val category: String) :
 
     private fun initViews() {
         homeAdapter = HomeAdapter(this)
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = homeAdapter
-        }
+        binding.recyclerView.adapter = homeAdapter
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.btnRetry.setOnClickListener(this)
         binding.switchRefresh.setOnRefreshListener(this)

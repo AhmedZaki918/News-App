@@ -1,6 +1,7 @@
 package com.example.newsapp.data.repository
 
-import androidx.lifecycle.LiveData
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import com.example.newsapp.data.local.ArticleDao
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.util.Coroutines
@@ -11,15 +12,12 @@ import javax.inject.Singleton
 class WishlistRepo @Inject constructor(
     private val articleDao: ArticleDao
 ) {
-    // Initialization
-    private lateinit var list: LiveData<List<Article>>
-
 
     // Receive data from database and update ui
-    fun fetchArticles(): LiveData<List<Article>> {
-        list = articleDao.getAllArticles()
-        return list
-    }
+    fun fetchArticles() =
+        Pager(PagingConfig(pageSize = 20)) {
+            articleDao.getAllArticles()
+        }.flow
 
 
     // Delete one item from database

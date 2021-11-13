@@ -1,6 +1,5 @@
 package com.example.newsapp.ui.wishlist
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.newsapp.data.model.Article
 import com.example.newsapp.data.repository.WishlistRepo
@@ -13,15 +12,13 @@ class WishlistViewModel @Inject constructor(
 ) : ViewModel() {
 
     // Send request to repository to display data
-    fun sendRequest(): LiveData<List<Article>> {
-        return repo.fetchArticles()
-    }
+    fun sendRequest() =
+        repo.fetchArticles()
 
     // Send delete request from database
     fun sendDeleteRequest(article: Article?) {
         repo.deleteArticle(article)
     }
-
 
     fun deleteAll() {
         repo.deleteAll()
