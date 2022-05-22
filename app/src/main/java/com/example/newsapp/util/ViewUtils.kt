@@ -14,13 +14,12 @@ import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.model.Article
 
 
-fun Context.toast(message: Int) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-}
-
-
-fun Context.toast(message: String?) {
-    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+fun <T> Context.toast(message: T) {
+    if (message is String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    } else if (message is Int) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 }
 
 

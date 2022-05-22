@@ -3,9 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/drawable-xxxhdpi/ic_logo.xml" value="0.2305921052631579" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/drawable/splash_image.xml" value="0.22833876221498373" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/activity_details.xml" value="0.2182410423452769" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/activity_font.xml" value="0.22039473684210525" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/activity_main.xml" value="0.2182410423452769" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/dialog_info.xml" value="0.21776315789473685" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/fragment_base.xml" value="0.22039473684210525" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/fragment_home.xml" value="0.2182410423452769" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/fragment_settings.xml" value="0.21563517915309446" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/fragment_wishlist.xml" value="0.2182410423452769" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/layout_home.xml" value="0.21776315789473685" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/layout_second.xml" value="0.22039473684210525" />
+        <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/layout/layout_wishilst.xml" value="0.22039473684210525" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/menu/menu.xml" value="0.21563517915309446" />
         <entry key="..\:/Users/Ahmed/AndroidStudioProjects/NewsApp-master/app/src/main/res/menu/nav_menu.xml" value="0.21563517915309446" />
       </map>

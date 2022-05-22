@@ -94,7 +94,7 @@ class DetailsActivity : AppCompatActivity(), View.OnClickListener {
 
 
     private fun initViews() {
-        viewModel = ViewModelProvider(this).get(DetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[DetailsViewModel::class.java]
         // Retrieve font size saved in shared preferences
         viewModel.retrieveFont(binding.tvDescription, binding.tvContent)
         // Display article details via parcelable

@@ -14,15 +14,18 @@ import com.example.newsapp.databinding.ActivityMainBinding
 import com.example.newsapp.ui.home.BaseFragment
 import com.example.newsapp.ui.settings.SettingFragment
 import com.example.newsapp.ui.wishlist.WishlistFragment
-import com.example.newsapp.util.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.newsapp.util.Coroutines
+import com.example.newsapp.util.NetworkConnection
+import com.example.newsapp.util.createFragment
+import com.example.newsapp.util.toast
+import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
-    BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    NavigationBarView.OnItemSelectedListener, View.OnClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -86,7 +89,7 @@ class MainActivity : AppCompatActivity(),
 
     private fun initViews() {
         binding.apply {
-            bottomNavigationView.setOnNavigationItemSelectedListener(this@MainActivity)
+            bottomNavigationView.setOnItemSelectedListener(this@MainActivity)
             btnRetry.setOnClickListener(this@MainActivity)
         }
     }

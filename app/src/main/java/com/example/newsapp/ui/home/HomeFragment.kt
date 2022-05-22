@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.newsapp.R
 import com.example.newsapp.data.local.Constants
@@ -64,7 +63,7 @@ class HomeFragment @Inject constructor(private val category: String) :
     private fun initViews() {
         homeAdapter = HomeAdapter(this)
         binding.recyclerView.adapter = homeAdapter
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         binding.btnRetry.setOnClickListener(this)
         binding.switchRefresh.setOnRefreshListener(this)
     }

@@ -5,7 +5,7 @@ import com.example.newsapp.data.model.Article
 
 object Constants {
     const val BASE_URL = "https://newsapi.org/v2/"
-    const val API_KEY = "YOUR API KEY"
+    const val API_KEY = "ca9c1cab47bb435ca4288f360849c3d2"
     const val PAGE_SIZE = 20
     const val STARTING_PAGE_INDEX = 1
     const val MODEL = "ARTICLE_MODEL"

@@ -16,7 +16,8 @@
         app:layout_constraintBottom_toTopOf="@+id/tv_connection_lost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/connection_lost" />
+        app:srcCompat="@drawable/connection_lost"
+        tools:ignore="ContentDescription" />
 
     <Button
         android:id="@+id/btn_retry"

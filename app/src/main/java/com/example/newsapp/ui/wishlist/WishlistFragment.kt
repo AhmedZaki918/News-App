@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.newsapp.R
 import com.example.newsapp.data.local.Constants
 import com.example.newsapp.data.model.Article
@@ -62,7 +61,7 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
                 positiveButton(R.string.delete) {
                     viewModel?.deleteAll()
                 }
-                negativeButton(R.string.cancel) {}
+                negativeButton(R.string.cancel)
             }.show()
         }
     }
@@ -95,7 +94,7 @@ class WishlistFragment : Fragment(), OnAdapterClick, View.OnClickListener {
     private fun initViews() {
         wishlistAdapter = WishlistAdapter(this)
         binding.recyclerView.adapter = wishlistAdapter
-        viewModel = ViewModelProvider(this).get(WishlistViewModel::class.java)
+        viewModel = ViewModelProvider(this)[WishlistViewModel::class.java]
         binding.floatingButton.setOnClickListener(this)
     }
 
