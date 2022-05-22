@@ -34,15 +34,14 @@ tech and sports, Implemented with SOLID principal and clean code.
 
 #### Libraries:
 - Retrofit  2.9.0 (https://square.github.io/retrofit/)
-- Gson      2.8.6 (https://github.com/google/gson)
-- Room      2.3.0 (https://developer.android.com/training/data-storage/room)
-- Glide     4.12.0 (https://github.com/bumptech/glide)
-- Coroutine 1.4.3 (https://developer.android.com/kotlin/coroutines)
-- Paging    3.0.0 (https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
-- Hilt      2.32-alpha (https://developer.android.com/training/dependency-injection/hilt-android)
+- Gson      2.9.6 (https://github.com/google/gson)
+- Room      2.4.2 (https://developer.android.com/training/data-storage/room)
+- Glide     4.13.0 (https://github.com/bumptech/glide)
+- Coroutine 1.6.1 (https://developer.android.com/kotlin/coroutines)
+- Paging    3.1.1 (https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
+- Hilt      2.40.1 (https://developer.android.com/training/dependency-injection/hilt-android)
 - ViewPager 1.0.0 (https://developer.android.com/jetpack/androidx/releases/viewpager2)
-- Material  1.3.0 (https://material.io/design) 
-- ViewModel, LiveData, Viewbinding 2.3.1 (https://developer.android.com/jetpack/androidx/releases/lifecycle)
+- ViewModel, LiveData, Viewbinding 2.4.1 (https://developer.android.com/jetpack/androidx/releases/lifecycle)
 
 ## Setup
 
@@ -52,10 +51,10 @@ in news api website (https://newsapi.org/s/google-news-api)
 to aquire api key for your app.
 
 #### System requirements
-- Android studio v4.2
+- Android Studio Chipmunk | 2021.2.1
 - Minimum sdk v21
 - Build tool v30.0.3
-- Compile sdk v30
+- Compile sdk v32
 
 ## YouTube link 
 
